@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout – Contexi components</title>
+  <style>
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-10Hairline.otf') format('opentype'); font-weight: 100; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-20Thin.otf')      format('opentype'); font-weight: 200; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-30Extralight.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-40Light.otf')     format('opentype'); font-weight: 350; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-50Regular.otf')   format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-60Medium.otf')    format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-70Semibold.otf')  format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-80Bold.otf')      format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-90Black.otf')     format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
+    :root {
+      --color-neutral-50:  #FAF8F5;
+      --color-neutral-100: #F3EFE8;
+      --color-neutral-200: #E8E2D8;
+      --color-neutral-300: #D5CCBE;
+      --color-neutral-400: #B5A99A;
+      --color-neutral-600: #7A6E61;
+      --color-neutral-800: #3D3530;
+      --color-neutral-900: #1E1A16;
+      --color-amber-400:   #D4952A;
+      --color-lavender-300: #C5BAE8;
+      --color-text-primary:   #1E1A16;
+      --color-text-secondary: #7A6E61;
+      --color-bg-page:        #F5F0EA;
+      --color-bg-section:     #FFFFFF;
+      --color-card-border:    #E8E2D8;
+      --color-card-bg:        #FFFFFF;
+      --color-card-hover-bg:  #FAF8F5;
+      --font-family: 'ContexiTest1', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-2xl: 42px;
+      --text-xl:  32px;
+      --text-lg:  24px;
+      --text-md:  16px;
+      --text-sm:  14px;
+      --section-py: 96px;
+      --container-max: 1170px;
+      --card-radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg-page);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Back link */
+    .back-bar {
+      background: var(--color-neutral-900);
+      padding: 12px 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .back-link:hover { color: #fff; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .co-section { background: var(--color-bg-section); padding: 64px 32px 96px; }
+    .co-container { max-width: var(--container-max); margin: 0 auto; }
+    .co-title { font-size: 36px; font-weight: 500; line-height: 1.2; color: var(--color-text-primary); margin-bottom: 56px; }
+    .co-layout { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+    .co-section-label { font-size: 18px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 28px; }
+    .co-block { margin-bottom: 48px; }
+    .co-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; align-items: flex-start; flex: 1; }
+    .co-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media(max-width:600px){ .co-field-row { grid-template-columns: 1fr; } }
+    .co-field:last-of-type { margin-bottom: 0; }
+    .co-input, .co-textarea { align-self: stretch; }
+    .co-rl { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+    /* Segmented toggle */
+    .co-toggle {
+      display: inline-flex;
+      background: var(--color-neutral-100);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 2px;
+    }
+    .co-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      background: transparent;
+      cursor: pointer;
+      font-family: var(--font-family);
+      transition: background .15s, color .15s, box-shadow .15s;
+    }
+    .co-toggle-btn.active {
+      background: #FFFFFF;
+      color: var(--color-text-primary);
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(30,26,22,.12);
+    }
+    .co-toggle-btn .toggle-ico { opacity: .45; }
+    .co-toggle-btn.active .toggle-ico { opacity: 1; }
+    .co-input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--color-card-border); border-radius: 8px; font-size: 15px; background: #fff; font-family: var(--font-family); outline: none; transition: border-color .15s; }
+    .co-input:focus { border-color: var(--color-text-primary); }
+    .co-input::placeholder { color: var(--color-neutral-400); }
+    .co-hint { font-size: 13px; color: var(--color-text-secondary); margin-top: 6px; }
+    .co-check-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 14px; color: var(--color-text-secondary); }
+    .co-check-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+    .co-check-row a { color: var(--color-text-primary); text-decoration: underline; }
+    .co-delivery { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+    .co-delivery-icon { width: 20px; height: 20px; background: #E8001C; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .co-pick-btn { display: inline-block; padding: 8px 20px; border: 1.5px solid var(--color-amber-400); border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--color-amber-400); background: transparent; cursor: pointer; font-family: var(--font-family); }
+    .co-payment { display: flex; flex-direction: column; gap: 8px; }
+    .co-payment-option { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--color-card-border); border-radius: 10px; cursor: pointer; }
+    .co-payment-option.active { border-color: var(--color-text-primary); }
+    .co-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--color-neutral-300); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .co-radio.checked { border-color: var(--color-text-primary); }
+    .co-radio.checked::after { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--color-text-primary); }
+    .co-payment-label { flex: 1; font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+    .co-card-icons { display: flex; align-items: center; gap: 5px; }
+    .co-free-tag { font-size: 12px; font-weight: 700; color: var(--color-text-secondary); letter-spacing: .05em; margin-left: auto; }
+    .co-textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--color-card-border); border-radius: 8px; font-size: 14px; color: var(--color-text-secondary); background: #fff; resize: none; font-family: var(--font-family); outline: none; min-height: 72px; transition: border-color .15s; }
+    .co-textarea:focus { border-color: var(--color-text-primary); }
+    .co-footer { display: flex; align-items: center; justify-content: flex-end; gap: 32px; padding-top: 24px; border-top: 1.5px solid var(--color-card-border); margin-top: 24px; }
+    .co-total-price { font-size: 28px; font-weight: 700; color: var(--color-text-primary); }
+    .co-total-vat { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+    .co-submit-btn { padding: 14px 32px; background: var(--color-lavender-300); color: var(--color-text-primary); border: none; border-radius: 999px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: var(--font-family); white-space: nowrap; transition: opacity .15s; display: inline-flex; align-items: center; gap: 10px; }
+    .co-submit-btn:hover { opacity: .85; }
+    .co-summary { background: var(--color-neutral-100); border-radius: 12px; padding: 28px; position: sticky; top: 60px; }
+    .co-summary-title { font-size: 18px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 20px; }
+    .co-summary-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-card-border); font-size: 14px; }
+    .co-summary-row:last-child { border-bottom: none; }
+    .co-summary-row-name { color: var(--color-text-secondary); flex: 1; line-height: 1.4; }
+    .co-summary-row-value { flex-shrink: 0; font-weight: 500; color: var(--color-text-primary); white-space: nowrap; }
+    .co-summary-row-value.free { color: var(--color-text-secondary); font-weight: 400; }
+    @media(max-width:900px){.co-layout{grid-template-columns:1fr;}.co-summary{position:static;}}
+    @media(max-width:560px){.co-section{padding:48px 20px;}.co-title{font-size:28px;}}
+
+  </style>
+</head>
+<body>
+<div class="back-bar">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Zpět na přehled
+  </a>
+</div>
+<section class="co-section"><div class="co-container">
+  <h1 class="co-title">Objednat čtení DNA</h1>
+  <div class="co-layout">
+    <div class="co-form">
+      <div class="co-block">
+        <h2 class="co-section-label">Vaše údaje</h2>
+        <div class="co-field"><label class="co-rl">Objednávám</label><div class="co-toggle"><button class="co-toggle-btn active">Pro sebe <span class="toggle-ico" style="color:var(--color-neutral-600)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 7v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.2" r="0.6" fill="currentColor"/></svg></span></button><button class="co-toggle-btn">Jako dárek <span class="toggle-ico" style="color:var(--color-neutral-400)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 7v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.2" r="0.6" fill="currentColor"/></svg></span></button></div></div>
+        <div class="co-field-row">
+          <div class="co-field"><label class="co-rl">Jméno</label><input type="text" class="co-input" placeholder="Jan"></div>
+          <div class="co-field"><label class="co-rl">Příjmení</label><input type="text" class="co-input" placeholder="Novák"></div>
+        </div>
+        <div class="co-field-row">
+          <div class="co-field"><label class="co-rl">E-mail</label><input type="email" class="co-input" placeholder="jan@example.com"></div>
+          <div class="co-field"><label class="co-rl">Telefon</label><input type="tel" class="co-input" placeholder="+420 123 456 789"><p class="co-hint">Bude vás kontaktovat kurýr.</p></div>
+        </div>
+        <div class="co-check-row" style="margin-top:12px;"><input type="checkbox" id="firma"><label for="firma" style="cursor:pointer;"><a href="#">Objednat na firmu</a></label></div>
+      </div>
+      <div class="co-block">
+        <h2 class="co-section-label">Doprava a doručení</h2>
+        <div class="co-field"><label class="co-rl">Způsob doručení</label><div class="co-delivery"><span class="co-delivery-icon"><svg viewBox="0 0 14 10" fill="none"><rect x="0" y="0" width="14" height="10" rx="1" fill="white" opacity=".9"/><path d="M0 4h14" stroke="#E8001C" stroke-width="1.2"/></svg></span>Zásilkovna<span style="color:var(--color-neutral-300)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 7v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.2" r="0.6" fill="currentColor"/></svg></span></div></div>
+        <div class="co-field"><label class="co-rl">Odběrné místo</label><button class="co-pick-btn">Vybrat</button></div>
+      </div>
+      <div class="co-block">
+        <h2 class="co-section-label">Způsob platby</h2>
+        <div class="co-payment">
+          <div class="co-payment-option active"><span class="co-radio checked"></span><span class="co-payment-label">Kartou</span><div class="co-card-icons"><span style="background:#EB001B;color:#fff;font-size:7px;font-weight:800;width:32px;height:20px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;">MC</span><span style="background:#1A1F71;color:#fff;font-size:7px;font-weight:800;width:32px;height:20px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;">VISA</span><span style="background:#2E77BC;color:#fff;font-size:7px;font-weight:800;width:32px;height:20px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;">AMEX</span><span style="background:#006FA9;color:#fff;font-size:7px;font-weight:800;width:32px;height:20px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;">MA</span></div><span class="co-free-tag">ZDARMA</span></div>
+          <div class="co-payment-option"><span class="co-radio"></span><span class="co-payment-label">Převodem na účet</span><span class="co-free-tag">ZDARMA</span></div>
+        </div>
+      </div>
+      <div class="co-block">
+        <textarea class="co-textarea" placeholder="Přidat poznámku" rows="2"></textarea>
+        <div class="co-check-row" style="margin-top:16px;"><input type="checkbox" id="terms"><label for="terms">Souhlasím s <a href="#">obchodními podmínkami</a> a se <a href="#">zpracováním osobních údajů</a></label></div>
+        <div class="co-check-row"><input type="checkbox" id="mkt"><label for="mkt">Souhlasím se <a href="#">zasíláním obchodních sdělení</a></label></div>
+      </div>
+      <div class="co-footer"><div><div class="co-total-price">19 999 Kč</div><div class="co-total-vat">vc. DPH</div></div><button class="co-submit-btn">Objednat čtení DNA <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    </div>
+    <aside class="co-summary">
+      <h3 class="co-summary-title">Shrnutí</h3>
+      <div class="co-summary-row"><span class="co-summary-row-name">Celogenomové čtení DNA s průběžně aktualizovanou interpretací</span><span class="co-summary-row-value">19 999 Kč</span></div>
+      <div class="co-summary-row"><span class="co-summary-row-name">Odběrová sada</span><span class="co-summary-row-value free">zdarma</span></div>
+      <div class="co-summary-row"><span class="co-summary-row-name">Doručení vzorku skrze Zásilkovnu</span><span class="co-summary-row-value free">zdarma</span></div>
+      <div class="co-summary-row"><span class="co-summary-row-name">Vyzvednutí kurýrem DPD</span><span class="co-summary-row-value free">zdarma</span></div>
+      <div class="co-summary-row"><span class="co-summary-row-name">Délka aktualizací</span><span class="co-summary-row-value">3 roky</span></div>
+    </aside>
+  </div>
+</div></section>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Porovnání – Contexi components</title>
+  <style>
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-10Hairline.otf') format('opentype'); font-weight: 100; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-20Thin.otf')      format('opentype'); font-weight: 200; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-30Extralight.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-40Light.otf')     format('opentype'); font-weight: 350; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-50Regular.otf')   format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-60Medium.otf')    format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-70Semibold.otf')  format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-80Bold.otf')      format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-90Black.otf')     format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
+    :root {
+      --color-neutral-50:  #FAF8F5;
+      --color-neutral-100: #F3EFE8;
+      --color-neutral-200: #E8E2D8;
+      --color-neutral-300: #D5CCBE;
+      --color-neutral-400: #B5A99A;
+      --color-neutral-600: #7A6E61;
+      --color-neutral-800: #3D3530;
+      --color-neutral-900: #1E1A16;
+      --color-amber-400:   #D4952A;
+      --color-lavender-300: #C5BAE8;
+      --color-text-primary:   #1E1A16;
+      --color-text-secondary: #7A6E61;
+      --color-bg-page:        #F5F0EA;
+      --color-bg-section:     #FFFFFF;
+      --color-card-border:    #E8E2D8;
+      --color-card-bg:        #FFFFFF;
+      --color-card-hover-bg:  #FAF8F5;
+      --font-family: 'ContexiTest1', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-2xl: 42px;
+      --text-xl:  32px;
+      --text-lg:  24px;
+      --text-md:  16px;
+      --text-sm:  14px;
+      --section-py: 96px;
+      --container-max: 1170px;
+      --card-radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg-page);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Back link */
+    .back-bar {
+      background: var(--color-neutral-900);
+      padding: 12px 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .back-link:hover { color: #fff; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .cmp-section { background: var(--color-bg-section); padding: 96px 32px; }
+    .cmp-container { max-width: var(--container-max); margin: 0 auto; }
+    .cmp-heading { font-size: var(--text-2xl); font-weight: 500; line-height: 1.2; text-align: center; color: var(--color-text-primary); margin-bottom: 56px; }
+    .cmp-table { width: 100%; border-collapse: collapse; }
+    .cmp-table thead th { padding: 0 24px 20px; font-size: 15px; font-weight: 600; color: var(--color-text-primary); text-align: left; border-bottom: 1.5px solid var(--color-card-border); }
+    .cmp-table thead th:first-child { width: 42%; }
+    .cmp-table thead th:not(:first-child) { width: 29%; text-align: center; }
+    .cmp-table tbody tr { border-bottom: 1px solid var(--color-card-border); }
+    .cmp-table tbody tr:last-child { border-bottom: none; }
+    .cmp-table td { padding: 20px 24px; font-size: 15px; vertical-align: middle; }
+    .cmp-table td:first-child { color: var(--color-text-primary); }
+    .cmp-table td:not(:first-child) { text-align: center; }
+    .cmp-label { display: inline-flex; align-items: center; gap: 6px; }
+    .cmp-info { color: var(--color-neutral-300); cursor: help; }
+    .cmp-info svg { width: 16px; height: 16px; display: block; }
+    .cmp-check svg, .cmp-cross svg { width: 20px; height: 20px; display: inline-block; vertical-align: middle; }
+    .cmp-bold { font-weight: 600; color: var(--color-text-primary); font-size: 15px; }
+    .cmp-text { color: var(--color-text-secondary); font-size: 14px; line-height: 1.4; }
+
+  </style>
+</head>
+<body>
+<div class="back-bar">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Zpět na přehled
+  </a>
+</div>
+<section class="cmp-section"><div class="cmp-container">
+  <h2 class="cmp-heading">Contexi vs. běžné DNA testy</h2>
+  <table class="cmp-table">
+    <thead><tr><th></th><th>Contexi</th><th>Běžné DNA testy</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cmp-label">Celogenomové testování (WGS 30x)<span class="cmp-info"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.4" r="0.6" fill="currentColor"/></svg></span></span></td><td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="cmp-text">Často jen vybrané části DNA</span></td></tr>
+      <tr><td><span class="cmp-label">Počet aspektů<span class="cmp-info"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.4" r="0.6" fill="currentColor"/></svg></span></span></td><td><span class="cmp-bold">170+</span></td><td><span class="cmp-text">Omezenější počet témat nebo užší záběr</span></td></tr>
+      <tr><td><span class="cmp-label">Odborná vrstva pro lékaře<span class="cmp-info"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.4" r="0.6" fill="currentColor"/></svg></span></span></td><td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="cmp-text">Uživatelský výstup bez odborného kontextu</span></td></tr>
+      <tr><td><span class="cmp-label">Praktická použitelnost<span class="cmp-info"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.4" r="0.6" fill="currentColor"/></svg></span></span></td><td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
+      <tr><td><span class="cmp-label">Aktualizace<span class="cmp-info"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.4" r="0.6" fill="currentColor"/></svg></span></span></td><td><span class="cmp-bold">3 roky zdarma</span></td><td><span class="cmp-cross"><svg viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></td></tr>
+      <tr><td><span class="cmp-label">Certifikované zdravotnické zařízení<span class="cmp-info"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="5.4" r="0.6" fill="currentColor"/></svg></span></span></td><td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l5 5 7-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="cmp-cross"><svg viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></td></tr>
+    </tbody>
+  </table>
+</div></section>
+</body>
+</html>

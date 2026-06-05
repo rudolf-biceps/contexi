@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ke stažení – Contexi components</title>
+  <style>
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-10Hairline.otf') format('opentype'); font-weight: 100; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-20Thin.otf')      format('opentype'); font-weight: 200; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-30Extralight.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-40Light.otf')     format('opentype'); font-weight: 350; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-50Regular.otf')   format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-60Medium.otf')    format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-70Semibold.otf')  format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-80Bold.otf')      format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-90Black.otf')     format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
+    :root {
+      --color-neutral-50:  #FAF8F5;
+      --color-neutral-100: #F3EFE8;
+      --color-neutral-200: #E8E2D8;
+      --color-neutral-300: #D5CCBE;
+      --color-neutral-400: #B5A99A;
+      --color-neutral-600: #7A6E61;
+      --color-neutral-800: #3D3530;
+      --color-neutral-900: #1E1A16;
+      --color-amber-400:   #D4952A;
+      --color-lavender-300: #C5BAE8;
+      --color-text-primary:   #1E1A16;
+      --color-text-secondary: #7A6E61;
+      --color-bg-page:        #F5F0EA;
+      --color-bg-section:     #FFFFFF;
+      --color-card-border:    #E8E2D8;
+      --color-card-bg:        #FFFFFF;
+      --color-card-hover-bg:  #FAF8F5;
+      --font-family: 'ContexiTest1', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-2xl: 42px;
+      --text-xl:  32px;
+      --text-lg:  24px;
+      --text-md:  16px;
+      --text-sm:  14px;
+      --section-py: 96px;
+      --container-max: 1170px;
+      --card-radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg-page);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Back link */
+    .back-bar {
+      background: var(--color-neutral-900);
+      padding: 12px 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .back-link:hover { color: #fff; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .downloads-section { background: var(--color-bg-section); padding: var(--section-py) 32px; }
+    .downloads-container { max-width: var(--container-max); margin: 0 auto; }
+    .downloads-heading { font-size: var(--text-2xl); font-weight: 500; line-height: 1.2; text-align: center; color: var(--color-text-primary); margin-bottom: 56px; }
+    .downloads-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .download-card { display: flex; align-items: center; gap: 16px; padding: 20px; background: var(--color-card-bg); border: 1.5px solid var(--color-card-border); border-radius: var(--card-radius); cursor: pointer; text-decoration: none; color: inherit; transition: background .18s, border-color .18s, box-shadow .18s; }
+    .download-card:hover { background: var(--color-card-hover-bg); border-color: var(--color-neutral-300); box-shadow: 0 2px 16px rgba(30,26,22,.07); }
+    .download-card:hover .download-card__icon-dl { background: var(--color-amber-400); color: #fff; border-color: var(--color-amber-400); }
+    .download-card__icon-pdf { flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); }
+    .download-card__icon-pdf svg { width: 28px; height: 28px; }
+    .download-card__text { flex: 1; font-size: var(--text-md); font-weight: 500; line-height: 1.45; }
+    .download-card__icon-dl { flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid var(--color-card-border); color: var(--color-text-secondary); transition: background .18s, color .18s, border-color .18s; }
+    .download-card__icon-dl svg { width: 16px; height: 16px; }
+    .info-banner { display: flex; align-items: flex-start; gap: 14px; padding: 20px 24px; background: var(--color-neutral-100); border-radius: 10px; margin-top: 24px; }
+    .info-banner__icon svg { width: 20px; height: 20px; display: block; color: var(--color-text-secondary); }
+    .info-banner__title { font-size: 15px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+    .info-banner__text { font-size: 14px; line-height: 1.55; color: var(--color-text-secondary); }
+    .info-banner__text a { color: var(--color-text-primary); text-decoration: underline; }
+    @media(max-width:900px){.downloads-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:560px){.downloads-section{padding:64px 20px;}.downloads-grid{grid-template-columns:1fr;}}
+
+  </style>
+</head>
+<body>
+<div class="back-bar">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Zpět na přehled
+  </a>
+</div>
+<section class="downloads-section">
+  <div class="downloads-container">
+    <h2 class="downloads-heading">Návody a bezpečnostní listy k&nbsp;odběrovým sadám</h2>
+    <div class="downloads-grid">
+      <a href="#" class="download-card"><span class="download-card__icon-pdf"><svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8L14 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><text x="5.5" y="18.5" font-family="sans-serif" font-size="4.8" font-weight="800" fill="currentColor">PDF</text></svg></span><span class="download-card__text">Návod k&nbsp;použití: Odběrová sada pro analýzu DNA ze slin</span><span class="download-card__icon-dl"><svg viewBox="0 0 16 16" fill="none"><path d="M8 3v8M8 11 5 8M8 11l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></a>
+      <a href="#" class="download-card"><span class="download-card__icon-pdf"><svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8L14 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><text x="5.5" y="18.5" font-family="sans-serif" font-size="4.8" font-weight="800" fill="currentColor">PDF</text></svg></span><span class="download-card__text">Návod k&nbsp;použití – Odběrová sada pro analýzu DNA z&nbsp;kapky krve</span><span class="download-card__icon-dl"><svg viewBox="0 0 16 16" fill="none"><path d="M8 3v8M8 11 5 8M8 11l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></a>
+      <a href="#" class="download-card"><span class="download-card__icon-pdf"><svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8L14 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><text x="5.5" y="18.5" font-family="sans-serif" font-size="4.8" font-weight="800" fill="currentColor">PDF</text></svg></span><span class="download-card__text">Návod k&nbsp;použití Lanceta</span><span class="download-card__icon-dl"><svg viewBox="0 0 16 16" fill="none"><path d="M8 3v8M8 11 5 8M8 11l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></a>
+      <a href="#" class="download-card"><span class="download-card__icon-pdf"><svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8L14 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><text x="5.5" y="18.5" font-family="sans-serif" font-size="4.8" font-weight="800" fill="currentColor">PDF</text></svg></span><span class="download-card__text">Bezpečnostní list – Odběrová zkumavka pro sliny</span><span class="download-card__icon-dl"><svg viewBox="0 0 16 16" fill="none"><path d="M8 3v8M8 11 5 8M8 11l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></a>
+    </div>
+    <div class="info-banner" role="note">
+      <span class="info-banner__icon"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 9v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="6.5" r="0.75" fill="currentColor"/></svg></span>
+      <div class="info-banner__body">
+        <p class="info-banner__title">Hlášení problémů s&nbsp;odběrovou sadou</p>
+        <p class="info-banner__text">Pokud byste při použití odběrové sady zaznamenali mimořádný problém související s&nbsp;její bezpečností nebo funkčností, napište nám prosím na <a href="mailto:podpora@contexi.com">podpora@contexi.com</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

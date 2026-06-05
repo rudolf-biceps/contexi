@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ – přehled témat – Contexi components</title>
+  <style>
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-10Hairline.otf') format('opentype'); font-weight: 100; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-20Thin.otf')      format('opentype'); font-weight: 200; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-30Extralight.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-40Light.otf')     format('opentype'); font-weight: 350; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-50Regular.otf')   format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-60Medium.otf')    format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-70Semibold.otf')  format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-80Bold.otf')      format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-90Black.otf')     format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+
+    :root {
+      --color-neutral-50:  #FAF8F5;
+      --color-neutral-100: #F3EFE8;
+      --color-neutral-200: #E8E2D8;
+      --color-neutral-300: #D5CCBE;
+      --color-neutral-400: #B5A99A;
+      --color-neutral-600: #7A6E61;
+      --color-neutral-800: #3D3530;
+      --color-neutral-900: #1E1A16;
+      --color-amber-400:   #D4952A;
+      --color-lavender-300: #C5BAE8;
+      --color-text-primary:   #1E1A16;
+      --color-text-secondary: #7A6E61;
+      --color-bg-page:        #F5F0EA;
+      --color-bg-section:     #FFFFFF;
+      --color-card-border:    #E8E2D8;
+      --color-card-bg:        #FFFFFF;
+      --color-card-hover-bg:  #FAF8F5;
+      --font-family: 'ContexiTest1', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-2xl: 42px;
+      --text-xl:  32px;
+      --text-lg:  24px;
+      --text-md:  16px;
+      --text-sm:  14px;
+      --section-py: 96px;
+      --container-max: 1170px;
+      --card-radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg-page);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Back link */
+    .back-bar {
+      background: var(--color-neutral-900);
+      padding: 12px 32px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .back-link:hover { color: #fff; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .faq-section { background: var(--color-bg-page); padding: var(--section-py) 32px; }
+    .faq-grid { max-width: var(--container-max); margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .faq-card { display: flex; flex-direction: column; background: var(--color-bg-section); border: 1.5px solid var(--color-card-border); border-radius: var(--card-radius); overflow: hidden; transition: border-color .18s, box-shadow .18s; }
+    .faq-card:hover { border-color: var(--color-neutral-300); box-shadow: 0 2px 20px rgba(30,26,22,.08); }
+    .faq-card__image { width: 100%; aspect-ratio: 16/9; background: var(--color-neutral-100); display: flex; align-items: center; justify-content: center; color: var(--color-neutral-400); }
+    .faq-card__image svg { width: 48px; height: 48px; opacity: .55; }
+    .faq-card__body { padding: 24px; display: flex; flex-direction: column; flex: 1; gap: 10px; }
+    .faq-card__title { font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--color-text-primary); }
+    .faq-card__desc { font-size: 13.5px; line-height: 1.55; color: var(--color-text-secondary); }
+    .faq-card__links { list-style: none; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .faq-card__links li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; line-height: 1.45; }
+    .faq-card__links li::before { content: '–'; flex-shrink: 0; color: var(--color-neutral-400); font-size: 12px; line-height: 1.6; }
+    .faq-card__links a { color: var(--color-text-primary); text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color .15s; }
+    .faq-card__links a:hover { text-decoration-color: var(--color-text-primary); }
+    .faq-card__more { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 13.5px; font-weight: 600; color: var(--color-amber-400); text-decoration: none; }
+    .faq-card__more:hover { text-decoration: underline; }
+    @media(max-width:900px){.faq-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:560px){.faq-section{padding:64px 20px;}.faq-grid{grid-template-columns:1fr;}}
+
+  </style>
+</head>
+<body>
+<div class="back-bar">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Zpět na přehled
+  </a>
+</div>
+<section class="faq-section"><div class="faq-grid">
+<article class="faq-card">
+      <div class="faq-card__image"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="20" r="8" stroke="currentColor" stroke-width="2"/><path d="M24 28c-8 0-14 3.6-14 8v2h28v-2c0-4.4-6-8-14-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <div class="faq-card__body">
+        <h3 class="faq-card__title">Vyhodnocení vzorku</h3>
+        <p class="faq-card__desc">Co se děje se vzorkem od odeslání až po vznik výsledků v reportu.</p>
+        <ul class="faq-card__links"><li><a href='#'>Co se děje s vaším vzorkem</a></li><li><a href='#'>Izolace DNA</a></li><li><a href='#'>Sekvenace</a></li></ul>
+        <a href="#" class="faq-card__more">+ 3 další</a>
+      </div>
+    </article>
+<article class="faq-card">
+      <div class="faq-card__image"><svg viewBox="0 0 48 48" fill="none"><path d="M16 8c0 8 16 8 16 16s-16 8-16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M32 8c0 8-16 8-16 16s16 8 16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 16h24M12 24h24M12 32h24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/></svg></div>
+      <div class="faq-card__body">
+        <h3 class="faq-card__title">Genetická onemocnění a dědičnost</h3>
+        <p class="faq-card__desc">Jak DNA souvisí s dědičnými riziky, léčbou a typy onemocnění, která vyšetřujeme.</p>
+        <ul class="faq-card__links"><li><a href='#'>Genetická onemocnění a dědičnost</a></li><li><a href='#'>Léčiva a léčebné přístupy</a></li><li><a href='#'>Jaká onemocnění vyšetřujeme?</a></li></ul>
+        <a href="#" class="faq-card__more">+ 3 další</a>
+      </div>
+    </article>
+<article class="faq-card">
+      <div class="faq-card__image"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="10" stroke="currentColor" stroke-width="2"/><path d="M24 19v6l4 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="faq-card__body">
+        <h3 class="faq-card__title">Genetika a etické otázky</h3>
+        <p class="faq-card__desc">Proč je při práci s DNA důležitá bezpečnost, odpovědnost a respekt k citlivým informacím.</p>
+        <ul class="faq-card__links"><li><a href='#'>Etika na prvním místě</a></li></ul>
+        <a href="#" class="faq-card__more">+ 3 další</a>
+      </div>
+    </article>
+<article class="faq-card">
+      <div class="faq-card__image"><svg viewBox="0 0 48 48" fill="none"><rect x="8" y="10" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2"/><path d="M14 18h20M14 24h20M14 30h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="faq-card__body">
+        <h3 class="faq-card__title">Základní pojmy v genetice</h3>
+        <p class="faq-card__desc">Srozumitelné vysvětlení DNA, RNA, genů a dalších základů, na kterých genetika stojí.</p>
+        <ul class="faq-card__links"><li><a href='#'>DNA a její funkce</a></li><li><a href='#'>RNA a její funkce</a></li><li><a href='#'>Mendelovy zákony dědičnosti</a></li></ul>
+        <a href="#" class="faq-card__more">+ 3 další</a>
+      </div>
+    </article>
+<article class="faq-card">
+      <div class="faq-card__image"><svg viewBox="0 0 48 48" fill="none"><path d="M18 8h12v6l4 4v6l-4 4v6H18v-6l-4-4v-6l4-4V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="24" r="4" stroke="currentColor" stroke-width="2"/></svg></div>
+      <div class="faq-card__body">
+        <h3 class="faq-card__title">Biochemie v lidském těle</h3>
+        <p class="faq-card__desc">Jak fungují enzymy, proteiny, metabolismus a další procesy důležité pro život.</p>
+        <ul class="faq-card__links"><li><a href='#'>Úvod do biochemie</a></li><li><a href='#'>Proteiny</a></li><li><a href='#'>Metabolické dráhy</a></li></ul>
+        <a href="#" class="faq-card__more">+ 3 další</a>
+      </div>
+    </article>
+<article class="faq-card">
+      <div class="faq-card__image"><svg viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="24" rx="14" ry="16" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="2"/></svg></div>
+      <div class="faq-card__body">
+        <h3 class="faq-card__title">Lidská buňka</h3>
+        <p class="faq-card__desc">Jak buňka funguje a proč je základem pro pochopení lidského těla.</p>
+        <ul class="faq-card__links"><li><a href='#'>Struktura buňky a buněčné organely</a></li><li><a href='#'>Buněčné jádro</a></li><li><a href='#'>Mitochondrie</a></li></ul>
+        <a href="#" class="faq-card__more">+ 3 další</a>
+      </div>
+    </article>
+</div></section>
+</body>
+</html>

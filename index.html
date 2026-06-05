@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contexi components</title>
+  <style>
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-60Medium.otf') format('opentype'); font-weight: 500; font-style: normal; }
+    @font-face { font-family: 'ContexiTest1'; src: url('fonts/ContexiTest1-80Bold.otf')   format('opentype'); font-weight: 700; font-style: normal; }
+    :root { --amber: #D4952A; --muted: #7A6E61; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'ContexiTest1', -apple-system, sans-serif; background: #1E1A16; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 96px 32px; -webkit-font-smoothing: antialiased; }
+    .inner { max-width: 720px; width: 100%; }
+    .label { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    h1 { font-size: 56px; font-weight: 500; line-height: 1.1; color: #fff; margin-bottom: 64px; }
+    ul { list-style: none; }
+    ul li { border-top: 1px solid rgba(255,255,255,.1); }
+    ul li:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
+    ul a { display: flex; align-items: center; gap: 0; padding: 22px 0; text-decoration: none; color: #fff; transition: color .15s; }
+    ul a:hover { color: var(--amber); }
+    ul a:hover .arr { color: var(--amber); transform: translate(2px,-2px); }
+    .num { font-size: 12px; color: var(--muted); font-weight: 500; margin-right: 20px; flex-shrink: 0; }
+    .name { flex: 1; font-size: 20px; font-weight: 500; }
+    .arr { flex-shrink: 0; color: rgba(255,255,255,.25); transition: transform .18s, color .15s; }
+    .arr svg { width: 20px; height: 20px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="inner">
+    <p class="label">Contexi</p>
+    <h1>Component library</h1>
+    <ul>
+      <li>
+        <a href="01-nav.html">
+          <span class="num">01</span>
+          <span class="name">Navigace</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a href="02-downloads.html">
+          <span class="num">02</span>
+          <span class="name">Návody a bezpečnostní listy ke stažení</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a href="03-faq-topics.html">
+          <span class="num">03</span>
+          <span class="name">FAQ — přehled témat</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a href="04-faq-detail.html">
+          <span class="num">04</span>
+          <span class="name">FAQ — detail kategorie</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a href="05-comparison.html">
+          <span class="num">05</span>
+          <span class="name">Porovnání</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a href="06-checkout.html">
+          <span class="num">06</span>
+          <span class="name">Checkout — objednávka</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+      <li>
+        <a href="ke-stazeni-section.html">
+          <span class="num">07</span>
+          <span class="name">Ke stažení — sekce</span>
+          <span class="arr"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16L16 4M16 4H7M16 4v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
